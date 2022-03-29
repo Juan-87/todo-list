@@ -56,7 +56,7 @@ function TodoList() {
     return (
         <section>
             {todos.length === 0 && <p className='first-todo'>Crea tu primer tarea.</p>}
-            {filteredTodos.length === 0 && <p className='first-todo'>No se encontraron tareas.</p>}
+            {(todos.length > 0 && filteredTodos.length === 0) && <p className='first-todo'>No se encontraron tareas.</p>}
 
             <ul className='todoList'>
                 {filteredTodos.map(todo => (<TodoItem key={todo.text} todo={todo} />))}
