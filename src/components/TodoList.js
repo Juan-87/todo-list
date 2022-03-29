@@ -22,6 +22,8 @@ function TodoItem({ todo, todos, setTodos }) {
         todos[index].completed = !todo.completed;
 
         setTodos([...todos]);
+
+        localStorage.setItem('todos', JSON.stringify(todos));
     };
 
     const onDelete = (e) => {
@@ -31,6 +33,8 @@ function TodoItem({ todo, todos, setTodos }) {
         todos.splice(index, 1);
 
         setTodos([...todos]);
+
+        localStorage.setItem('todos', JSON.stringify(todos));
     };
 
     return (

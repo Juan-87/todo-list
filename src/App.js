@@ -5,14 +5,10 @@ import React from 'react';
 import { TodoData } from './components/TodoList';
 import { AddTodo } from './components/AddTodo';
 
-const defaultTodos = [
-  { text: 'Aprender React', completed: false },
-  { text: 'Aprender Vue', completed: true },
-  { text: 'Aprender Angular', completed: false },
-];
-
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos);
+  const storage = localStorage.getItem('todos');
+
+  const [todos, setTodos] = React.useState(storage ? JSON.parse(storage) : []);
   const [searchValue, setSearchValue] = React.useState('');
 
   return (
