@@ -10,15 +10,29 @@ function TodoCounter(props) {
 }
 
 function TodoSearch() {
+    const onSearch = (e) => {
+        console.log(e.currentTarget.value);
+    };
+
     return (
-        <input type="text" placeholder="Buscar" />
+        <input type="text" placeholder="Buscar" onChange={onSearch} />
     );
 }
 
 function TodoItem(props) {
+    const onComplete = () => {
+        alert('tarjeta completada');
+    };
+
+    const onDelete = (e) => {
+        e.stopPropagation();
+
+        alert('tarjeta eliminada');
+    };
+
     return (
         <li>
-            <label className={`${props.completed && 'active'}`}>
+            <label className={`${props.completed && 'active'}`} onClick={onComplete}>
                 <span className="checkmark">
                     <div className="checkmark_stem"></div>
                     <div className="checkmark_kick"></div>
@@ -26,7 +40,7 @@ function TodoItem(props) {
 
                 {props.text}
 
-                <span className="closemark"></span>
+                <span className="closemark " onClick={onDelete}></span>
             </label>
         </li>
     );
