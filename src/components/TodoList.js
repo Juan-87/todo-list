@@ -1,44 +1,47 @@
 import React from 'react';
 
-function TodoCounter(props) {
-    const completes = props.todos.filter(todo => todo.completed).length;
-    const tareasText = completes === 1 ? 'tarea' : 'tareas';
-
+function TodoCounter({ completed, total }) {
     return (
-        <h2>Has completado {completes} {tareasText} de {props.todos.length}</h2>
+        <h2>Has completado {completed} {completed === 1 ? 'tarea' : 'tareas'} de {total}</h2>
     );
 }
 
-function TodoSearch() {
+function TodoSearch({ searchValue, setSearchValue }) {
     const onSearch = (e) => {
-        console.log(e.currentTarget.value);
+        setSearchValue(e.currentTarget.value);
     };
 
     return (
-        <input type="text" placeholder="Buscar" onChange={onSearch} />
+        <input type="text" placeholder="Buscar" onChange={onSearch} value={searchValue} />
     );
 }
 
-function TodoItem(props) {
+function TodoItem({ todo, todos, setTodos }) {
     const onComplete = () => {
-        alert('tarjeta completada');
+        const index = todos.indexOf(todo);
+        todos[index].completed = !todo.completed;
+
+        setTodos([...todos]);
     };
 
     const onDelete = (e) => {
         e.stopPropagation();
 
-        alert('tarjeta eliminada');
+        const index = todos.indexOf(todo);
+        todos.splice(index, 1);
+
+        setTodos([...todos]);
     };
 
     return (
         <li>
-            <label className={`${props.completed && 'active'}`} onClick={onComplete}>
+            <label className={`${todo.completed && 'active'}`} onClick={onComplete}>
                 <span className="checkmark">
                     <div className="checkmark_stem"></div>
                     <div className="checkmark_kick"></div>
                 </span>
 
-                {props.text}
+                {todo.text}
 
                 <span className="closemark " onClick={onDelete}></span>
             </label>
@@ -46,26 +49,30 @@ function TodoItem(props) {
     );
 }
 
-function TodoList(props) {
+function TodoList({ todos, setTodos, filtered }) {
     return (
         <section>
             <ul className='todoList'>
-                {props.todos.map(todo => (<TodoItem key={todo.text} text={todo.text} completed={todo.completed} />))}
+                {filtered.map(todo => (<TodoItem key={todo.text} todo={todo} todos={todos} setTodos={setTodos} />))}
             </ul>
         </section>
     );
 }
 
-function TodoData(props) {
+function TodoData({ searchValue, setSearchValue, todos, setTodos }) {
+    const completed = todos.filter(todo => todo.completed).length;
+    const total = todos.length;
+    const filteredTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchValue.toLowerCase()));
+
     return (
         <React.Fragment>
-            <TodoCounter todos={props.todos} />
+            <TodoCounter completed={completed} total={total} />
 
-            <TodoSearch />
+            <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
 
             <hr />
 
-            <TodoList todos={props.todos} />
+            <TodoList filtered={filteredTodos} todos={todos} setTodos={setTodos} />
         </React.Fragment>
     );
 }
