@@ -5,10 +5,23 @@ import React from 'react';
 import { TodoData } from './components/TodoList';
 import { AddTodo } from './components/AddTodo';
 
-function App() {
-  const storage = localStorage.getItem('todos');
+function useLocalStorage(itemName, initialValue) {
+  const storage = localStorage.getItem(itemName);
+  const parsedStorage = storage ? JSON.parse(storage) : initialValue;
 
-  const [todos, setTodos] = React.useState(storage ? JSON.parse(storage) : []);
+  const [items, setItems] = React.useState(parsedStorage);
+
+  const saveItems = (items) => {
+    localStorage.setItem(itemName, JSON.stringify(items));
+
+    setItems([...items]);
+  }
+
+  return [items, saveItems];
+}
+
+function App() {
+  const [todos, setTodos] = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
 
   return (
