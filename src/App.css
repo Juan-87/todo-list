@@ -144,7 +144,11 @@ input[type="text"] {
   margin: 10px;
 }
 
-.checkmark.active {
+.todoList  li label.active {
+  text-decoration: line-through;
+}
+
+.todoList  li label.active .checkmark {
   opacity: 1;
   animation: jelly .6s ease;
 }

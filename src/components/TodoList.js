@@ -18,8 +18,8 @@ function TodoSearch() {
 function TodoItem(props) {
     return (
         <li>
-            <label>
-                <span className={`checkmark ${props.completed && 'active'}`}>
+            <label className={`${props.completed && 'active'}`}>
+                <span className="checkmark">
                     <div className="checkmark_stem"></div>
                     <div className="checkmark_kick"></div>
                 </span>
