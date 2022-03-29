@@ -1,78 +1,90 @@
 import React from 'react';
+import { TodoContext } from '../TodoContext';
 
-function TodoCounter({ completed, total }) {
+function TodoCounter() {
+    const { 
+        completed, 
+        total, 
+    } = React.useContext(TodoContext);
+
     return (
         <h2>Has completado {completed} {completed === 1 ? 'tarea' : 'tareas'} de {total}</h2>
     );
 }
 
-function TodoSearch({ searchValue, setSearchValue }) {
-    const onSearch = (e) => {
-        setSearchValue(e.currentTarget.value);
-    };
+function TodoSearch() {
+    const { 
+        searchValue, 
+        searchTodo
+    } = React.useContext(TodoContext);
 
     return (
-        <input type="text" placeholder="Buscar" onChange={onSearch} value={searchValue} />
+        <input type="text" placeholder="Buscar" onChange={(e) => searchTodo(e)} value={searchValue} />
     );
 }
 
-function TodoItem({ todo, todos, setTodos }) {
-    const onComplete = () => {
-        const index = todos.indexOf(todo);
-        todos[index].completed = !todo.completed;
-
-        setTodos(todos);
-    };
-
-    const onDelete = (e) => {
-        e.stopPropagation();
-
-        const index = todos.indexOf(todo);
-        todos.splice(index, 1);
-
-        setTodos(todos);
-    };
+function TodoItem({ todo }) {
+    const {
+        completeTodo,
+        deleteTodo
+    } = React.useContext(TodoContext);
 
     return (
-        <li>
-            <label className={`${todo.completed && 'active'}`} onClick={onComplete}>
-                <span className="checkmark">
-                    <div className="checkmark_stem"></div>
-                    <div className="checkmark_kick"></div>
-                </span>
+        <React.Fragment>
+            <li>
+                <label className={`${todo.completed && 'active'}`} onClick={() => completeTodo(todo)}>
+                    <span className="checkmark">
+                        <div className="checkmark_stem"></div>
+                        <div className="checkmark_kick"></div>
+                    </span>
 
-                {todo.text}
+                    {todo.text}
 
-                <span className="closemark " onClick={onDelete}></span>
-            </label>
-        </li>
+                    <span className="closemark " onClick={(e) => deleteTodo(e, todo)}></span>
+                </label>
+            </li>
+        </React.Fragment>
     );
 }
 
-function TodoList({ todos, setTodos, filtered }) {
+function TodoList() {
+    const { 
+        todos, 
+        filteredTodos
+    } = React.useContext(TodoContext);
+
     return (
         <section>
+            {todos.length === 0 && <p className='first-todo'>Crea tu primer tarea.</p>}
+            {filteredTodos.length === 0 && <p className='first-todo'>No se encontraron tareas.</p>}
+
             <ul className='todoList'>
-                {filtered.map(todo => (<TodoItem key={todo.text} todo={todo} todos={todos} setTodos={setTodos} />))}
+                {filteredTodos.map(todo => (<TodoItem key={todo.text} todo={todo} />))}
             </ul>
         </section>
     );
 }
 
-function TodoData({ searchValue, setSearchValue, todos, setTodos }) {
-    const completed = todos.filter(todo => todo.completed).length;
-    const total = todos.length;
-    const filteredTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchValue.toLowerCase()));
+function TodoData() {
+    const { 
+        completed, 
+        total, 
+        searchValue, 
+        setSearchValue, 
+        filteredTodos, 
+        todos, 
+        setTodos
+    } = React.useContext(TodoContext);
 
     return (
         <React.Fragment>
-            <TodoCounter completed={completed} total={total} />
+            <TodoCounter />
 
-            <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+            <TodoSearch />
 
             <hr />
 
-            <TodoList filtered={filteredTodos} todos={todos} setTodos={setTodos} />
+            <TodoList />
         </React.Fragment>
     );
 }

@@ -1,17 +1,19 @@
 import React from 'react';
 
-function AddTodo() {
-    const addTodoToList = (msg) => {
-        alert(msg);
-    }
+import { TodoContext } from '../TodoContext';
+
+function AddTodo({ children }) {
+    const { 
+        toggleModal
+    } = React.useContext(TodoContext);
 
     return (
         <React.Fragment>
-            <h2>Crear nueva tarea</h2>
+            <article className='createForm'>
+                {children}
+            </article>
 
-            <input type="text" placeholder="Nueva tarea" />
-
-            <button onClick={() => addTodoToList('test')}>Agregar</button>.
+            <button className="CreateTodoButton" onClick={toggleModal}>+</button>
         </React.Fragment>
     );
 }

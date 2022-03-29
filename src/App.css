@@ -62,6 +62,7 @@ input[type="text"] {
   box-sizing: border-box;
   padding: 25px;
   color: #fff;
+  overflow-x: auto;
 }
 
 .createForm {
@@ -77,7 +78,15 @@ input[type="text"] {
   -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
 }
 
-.createForm h2 {
+.createForm p, 
+.modal p {
+  font-size: 1.4em;
+  color: red;
+  font-weight: bold;
+}
+
+.createForm h2, 
+.modal h2 {
   background: -webkit-linear-gradient(#50a3a2, #53e3a6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -85,7 +94,8 @@ input[type="text"] {
   text-shadow: 0px 1px rgba(0,0,0,0.3);
 }
 
-.createForm button {
+.createForm button, 
+.modal button {
   float: right;
   border: none;
   border-radius: 5px;
@@ -95,6 +105,13 @@ input[type="text"] {
   color: #fff;
   cursor: pointer;
   transition: all .3s ease-in-out;
+}
+
+.modal input[type="text"] {
+  background-color: rgba(255, 255, 255, .6);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
 }
 
 .createForm button:hover {
@@ -124,6 +141,11 @@ input[type="text"] {
   font-size: 1.4em;
   cursor: pointer;
   position: relative;
+}
+
+.first-todo {
+  text-align: center;
+  font-size: 1.4em;
 }
 
 .checkmark {
@@ -169,6 +191,30 @@ input[type="text"] {
   background-color:#50a3a2;
   left:8px;
   top:18px;
+}
+
+.CreateTodoButton {
+  background-color: #50a3a2;
+  box-shadow: 0px 5px 25px rgba(97, 218, 250, 0.5);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 50px;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+  width: 64px;
+  display: none;
+}
+
+.CreateTodoButton:hover {
+  transform: rotate(224deg);
 }
 
 .bg-bubbles {
@@ -274,6 +320,34 @@ input[type="text"] {
   height: 160px;
   
   animation-delay: 11s;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 96%;
+  height: 96%;
+  z-index: 100;
+  margin: 2%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+@media (max-width: 600px) { 
+  #root .wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .createForm {
+    display: none;
+  }
+
+  .CreateTodoButton {
+    display: block;
+  }
 }
 
 @-webkit-keyframes square {
