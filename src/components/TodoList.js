@@ -19,7 +19,7 @@ function TodoItem(props) {
     return (
         <li>
             <label>
-                <span className="checkmark">
+                <span className={`checkmark ${props.completed && 'active'}`}>
                     <div className="checkmark_stem"></div>
                     <div className="checkmark_kick"></div>
                 </span>
@@ -36,7 +36,7 @@ function TodoList(props) {
     return (
         <section>
             <ul className='todoList'>
-                {props.todos.map(todo => (<TodoItem key={todo.text} text={todo.text} />))}
+                {props.todos.map(todo => (<TodoItem key={todo.text} text={todo.text} completed={todo.completed} />))}
             </ul>
         </section>
     );

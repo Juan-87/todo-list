@@ -130,10 +130,8 @@ input[type="text"] {
   display:inline-block;
   width: 22px;
   height:22px;
-  -ms-transform: rotate(45deg); /* IE 9 */
-  -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
   transform: rotate(45deg);
-  /* opacity: 0; */
+  opacity: 0;
 }
 
 .closemark:after{
@@ -147,6 +145,7 @@ input[type="text"] {
 }
 
 .checkmark.active {
+  opacity: 1;
   animation: jelly .6s ease;
 }
 
@@ -284,11 +283,11 @@ input[type="text"] {
 }
 
 @keyframes jelly {
-  0%   { transform: scale(1, 1); }
-  30%  { transform: scale(1.25, 0.75); }
-  40%  { transform: scale(0.75, 1.25); }
-  50%  { transform: scale(1.15, 0.85); }
-  65%  { transform: scale(0.95, 1.05); }
-  75%  { transform: scale(1.05, 0.95); }
-  100% { transform: scale(1, 1); }
+  0%   { transform: scale(1, 1) rotate(45deg);  }
+  30%  { transform: scale(1.25, 0.75) rotate(45deg); }
+  40%  { transform: scale(0.75, 1.25) rotate(45deg); }
+  50%  { transform: scale(1.15, 0.85) rotate(45deg); }
+  65%  { transform: scale(0.95, 1.05) rotate(45deg); }
+  75%  { transform: scale(1.05, 0.95) rotate(45deg); }
+  100% { transform: scale(1, 1) rotate(45deg); }
 }
