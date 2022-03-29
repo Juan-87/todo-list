@@ -1,24 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+
+import React from 'react';
+
+import { TodoData } from './components/TodoList';
+import { AddTodo } from './components/AddTodo';
+
+const todos = [
+  { text: 'Aprender React', completed: false },
+  { text: 'Aprender Vue', completed: true },
+  { text: 'Aprender Angular', completed: false },
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <section className="wrapper">
+        <article className='listContainer'>
+          <TodoData todos={todos} />
+        </article>
+
+        <article className='createForm'>
+          <AddTodo />
+        </article>
+      </section>
+
+      <ul className="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </React.Fragment>
   );
 }
 
