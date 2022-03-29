@@ -14,13 +14,18 @@ function AddTodoForm() {
         setNewText(e.currentTarget.value);
     }
 
+    const addTodoForm = () => {
+        addTodo(newText);
+        setNewText('');
+    }
+
     return (
         <React.Fragment>
             <h2>Crear nueva tarea</h2>
 
             <input type="text" placeholder="Nueva tarea" onChange={onNewTextChange} value={newText} />
 
-            <button onClick={() => addTodo(newText)}>Agregar</button>
+            <button onClick={addTodoForm}>Agregar</button>
 
             {addTodoError && <p className='error'>{addTodoError}</p>}
         </React.Fragment>
